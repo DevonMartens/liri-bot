@@ -4,14 +4,15 @@ var spotify = new Spotify(keys.spotify);
 var request = require('request')
 
 //require bands in town and api key
-//var bandsintown = require('bandsintown')("codingbootcamp");
+var bandsintown = require('bandsintown')("codingbootcamp");
 //A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
-//var moment = require('moment');
+//properly installed
+var moment = require('moment');
 //file system node - work with my computer now Node.js filesystem reference between folders
 var fs = require("fs");
 // uses spotify api
 var spotify = require('node-spotify-api');
-var spotify = new spotify(keys.spotify);
+
 // variables
 var action = process.argv[2];
 // value is passed arguement???
