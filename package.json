@@ -1,0 +1,25 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "This repository is called Liri Bot like Siri only Liri's function is not speach it is LIRI is a Language Interpretation and Recognition Interface. Liri works through the terminal's command line and gives you back data about music and movies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevonMartens/liri-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevonMartens/liri-bot/issues"
+  },
+  "homepage": "https://github.com/DevonMartens/liri-bot#readme",
+  "dependencies": {
+    "bandsintown": "^1.0.1",
+    "mdata": "^1.0.1",
+    "node-spotify-api": "^1.1.1"
+  }
+}
