@@ -1,7 +1,7 @@
 var keys = require("./keys.js");
-var spotify = new Spotify(keys.spotify);
 
-var request = require('request')
+var request = require('request');
+var axios = require('axios');
 
 //require bands in town and api key
 var bandsintown = require('bandsintown')("codingbootcamp");
@@ -11,22 +11,50 @@ var moment = require('moment');
 //file system node - work with my computer now Node.js filesystem reference between folders
 var fs = require("fs");
 // uses spotify api
-var spotify = require('node-spotify-api');
+var Spotify = require('node-spotify-api');
+console.log(keys.Spotify)
+var spotify = new Spotify(keys.Spotify);
 
 // variables
 var action = process.argv[2];
 // value is passed arguement???
-var value = process.argv[3];
+var value = process.argv.slice(3).join(" ");
+
 
 //requirements
 
 
 
 //var defaults
-var DFMoive = 'Mr. Nobody.'
+var DFMovie = 'Mr. Nobody.'
 // on spotify it's not "the sign" it's I saw the sign
 var DFSong = "I Saw The Sign"
 
+// Function getSongInfo for 1st case "spotify-this-song":
+// spotify-this-song: spotify api => check your spotify API
+//  Artist(s)
+// The song's name
+//  A preview link of the song from Spotify
+//  The album that the song is from
+//undefeined= default song "var DFSong"
+function getSongInfo(songName) {
+    //var NameOfSong = value;
+        //If user has not specified a song , default to "The Sign" by Ace of Bass
+        //this is also declated above I am unsure where it needs to be located
+        if (songName === "") {
+          songName = "I Saw the Sign";
+        }
+    // spotify.search  spotify is the string .search allows to pull
+    spotify.search({ type: 'track', query: songName }, function (err, data) {
+    //error catch... .catch maybe better 
+          //Artist(s) + song name?
+          console.log("Artists: ", data.tracks.items[0].album.artists[0].name)
+          // A preview link of the song from Spotify
+          console.log("Preview Link: ", data.tracks.items[0].preview_url)
+          // The album that the song is from
+          console.log("Album Name: ", data.tracks.items[0].album.name)
+        });
+      }
 
 
 //Case and Switch statement (differnt action = run api) based on different condition (node command)
@@ -41,7 +69,7 @@ switch (action) {
     getConcert (value)
     break;
 // spotify-this-song: spotify api
-//	Output: Artist(s), The song's name, A preview link of the song from Spotify, The album that the song is from, undefeined= default song "var DFSong"
+//  Output: Artist(s), The song's name, A preview link of the song from Spotify, The album that the song is from, undefeined= default song "var DFSong"
 case "spotify-this-song":
 //should that be here or below?
    // if (value ==="") {
@@ -55,9 +83,9 @@ case "spotify-this-song":
 // More:  Plot of the movie. Actors in the movie.
 // undefeined= default song "var DFMovie"
 case "movie-this":   
- //   if (value ==="") {
- //   value = DFMovie;
- //               }
+   if (!value) {
+   value = DFMovie;
+               }
 getMovieInfo (value)
  break;
 //do-what-it-says
@@ -81,10 +109,10 @@ function getConcert (artist) {
     //// Name of the venue
         console.log("Name of the venue:", response.data[0].venue.name);
     // Venue location - double check if venue.state will work
-        console.log("Venue location:", response.data[0].venue.city + response.data[0].venue.state);
+        console.log("Venue location:", response.data[0].venue.city);
     // in order to format the date .format is an actual function (use moment for parsing variable declared above)
-        var Date = moment(response.data[0].datetime).format('MM/DD/YYYY');
-        console.log("Date of the Event:", eventDate);
+        var date = moment(response.data[0].datetime).format('MM/DD/YYYY');
+        console.log("Date of the Event:", date);
       })
 // .catch is a promise to handle errors  
       .catch(function (error) {
@@ -92,39 +120,14 @@ function getConcert (artist) {
       });
   }
 
-// Function getSongInfo for 1st case "spotify-this-song":
-// spotify-this-song: spotify api => check your spotify API
-//	Artist(s)
-// The song's name
-//	A preview link of the song from Spotify
-//	The album that the song is from
-//undefeined= default song "var DFSong"
-function getSongs(songName) {
-    var NameOfSong = value;
-        //If user has not specified a song , default to "The Sign" by Ace of Bass
-        //this is also declated above I am unsure where it needs to be located
-        if (songName === "") {
-          songName = "I Saw the Sign";
-        }
-    // spotify.search  spotify is the string .search allows to pull
-    spotify.search({ type: 'track', query: songName }, function (err, data) {
-    //error catch... .catch maybe better 
-          //Artist(s) + song name?
-          console.log("Artists: ", data.tracks.items[0].album.artists[0].name)
-          // A preview link of the song from Spotify
-          console.log("Preview Link: ", data.tracks.items[0].preview_url)
-          // The album that the song is from
-          console.log("Album Name: ", data.tracks.items[0].album.name)
-        });
-      }
       
       function getMovieInfo (Movie) {
     //Do i need to declare this value
-        var Movie = value;
+        
     //. get returns the value from the url (differnt from searching ) //check that reset worked for api key
     // orginal api key indicated that it had been deleted
     //.env has api key may need to be hiddem
-        axios.get("http://www.omdbapi.com/?apikey=9a315c78=" + Movie)
+        axios.get("http://www.omdbapi.com/?t=" + Movie + "&apikey=9a315c78")
           .then(function (data) {
 //specifying return values   
             var results = `
@@ -140,15 +143,12 @@ function getSongs(songName) {
           })
     //use catch 
           .catch(function (error) {
-            console.log(error);
+            throw error;
+            //console.log(error);
           });
           //Response if user does not type in a movie title
           //again here or above 
-          if (movieName === "Mr. Nobody") {
-            console.log("-----------------------");
-            console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-            console.log("It's on Netflix!");
-        };
+          
       }
       
 function doWhatItSays() {
@@ -181,3 +181,4 @@ function doWhatItSays() {
         }
       });
     }
+    
