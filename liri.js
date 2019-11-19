@@ -129,6 +129,7 @@ function getConcert (artist) {
     //.env has api key may need to be hiddem
         axios.get("http://www.omdbapi.com/?t=" + Movie + "&apikey=9a315c78")
           .then(function (data) {
+            console.log(data.data)
 //specifying return values   
             var results = `
             Title of the movie: ${data.data.Title}
