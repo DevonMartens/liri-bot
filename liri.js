@@ -1,17 +1,17 @@
+require('./.gitignore/node_modules/dotenv').config()
 var keys = require("./keys.js");
-
-var request = require('request');
-var axios = require('axios');
+//var request = require('request');
+var axios = require('./.gitignore/node_modules/axios');
 
 //require bands in town and api key
-var bandsintown = require('bandsintown')("codingbootcamp");
+var bandsintown = require('./.gitignore/node_modules/bandsintown')("codingbootcamp");
 //A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 //properly installed
-var moment = require('moment');
+var moment = require('./.gitignore/node_modules/moment');
 //file system node - work with my computer now Node.js filesystem reference between folders
 var fs = require("fs");
 // uses spotify api
-var Spotify = require('node-spotify-api');
+var Spotify = require('./.gitignore/node_modules/node-spotify-api');
 console.log(keys.Spotify)
 var spotify = new Spotify(keys.Spotify);
 
