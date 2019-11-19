@@ -37,7 +37,11 @@ o	Using the fs Node package, LIRI will take the text inside of random.txt and th
 ♣	It will run spotify-this-song for "I Want it That Way," and the text in random.txt.
 ♣	A test will be shown for random.txt to test out the feature for movie-this and concert-this.
 
-Please Enjoy this GIF of the app working:
+Please view screen shot one and two of this working:
+
+I plan on creating a gif later.
+  
+
 
 
 
