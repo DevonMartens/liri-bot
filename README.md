@@ -1,6 +1,9 @@
 # liri-bot
 
+
 This repository is called Liri Bot like Siri only Liri's function is not speach it is LIRI is a Language Interpretation and Recognition Interface. Liri works through the terminal's command line and gives you back data about music and movies. 
+
+Liri uses: HTML, CSS, JavaScript, Jquery, API calls, and node.
 
 The commands for Liri are listed below:
 1. $ node liri.js concert-this 
